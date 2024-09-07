@@ -1,58 +1,39 @@
 /******************************************************************************
 
-Welcome to GDB Online.
-  GDB online is an online compiler and debugger tool for C, C++, Python, PHP, Ruby, 
-  C#, OCaml, VB, Perl, Swift, Prolog, Javascript, Pascal, COBOL, HTML, CSS, JS
-  Code, Compile, Run and Debug online from anywhere in world.
+1주차 3. 배열실습 - 성적 구하기
 
 *******************************************************************************/
 #include <stdio.h>
-
-int main() {
-    int n;  
-    printf("상품 개수(종류) 입력: ");
-    scanf("%d", &n);
-
-    if (n < 1 || n > 100) {
-        printf("상품의 종류는 1에서 100 사이여야 합니다.\n");
-        return 1;  
-    }
-
-    int stock[100] = {0};  
-    int sales[100] = {0};  
-    int inventory[100] = {0};  
-
+#include <stdlib.h>
+#include <time.h>
+#define SZIE 100
+int main()
+{
+    int number[SZIE];
+    int total = 0;
+    int max, min;
+    float avg = 0.0;
+    srand(time(NULL));
     
-    printf("상품 별 입고수량 입력: ");
-    for (int i = 0; i < n; i++) {
-        scanf("%d", &stock[i]);
+    for(int i = 0; i<SZIE; i++){
+        number[i] = (rand() % 100) + 1;
     }
 
-    
-    printf("상품 별 판매수량 입력: ");
-    for (int i = 0; i < n; i++) {
-        scanf("%d", &sales[i]);
-        inventory[i] = stock[i] - sales[i];  
+    for(int i = 0; i<SZIE; i++){
+        printf("%3d\t", number[i]);
+        if((i+1) % 10 == 0) printf("\n");
     }
-
-    
-    int id;
-    printf("ID 입력: ");
-    scanf("%d", &id);
-
-    if (id < 1 || id > n) {
-        printf("잘못된 ID입니다.\n");
-        return 1;
+    for(int i = 0; i<SZIE; i++){
+       total += number[i];
     }
-
-    printf("ID %d에 해당하는 제품의 재고 수량: %d\n", id, inventory[id - 1]);
-
-    
-    printf("모든 상품의 재고 수량: ");
-    for (int i = 0; i < n; i++) {
-        printf("%d ", inventory[i]);
+    avg = (float)total / SZIE;
+        
+    max = number[0];
+    min = number[0];
+           for(int i = 0; i<SZIE; i++){
+       if(max < number[i]) max = number [i];
+         if(min < number[i]) min = number [i];
     }
-    printf("\n");
-
-    return 0;
+    printf("avg = %f, max= %d, min = %d\n", avg, max,min);
+    return 0; 
 }
